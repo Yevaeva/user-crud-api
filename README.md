@@ -1,4 +1,4 @@
-# Client Management APP
+# User Management APP
 
 ### Project installation and usage
 
