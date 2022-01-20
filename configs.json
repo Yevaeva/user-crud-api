@@ -1,0 +1,4 @@
+{
+  "port": "3007",
+  "mongoUri": "mongodb+srv://yeva:clientlist@cluster0.rb5qb.mongodb.net/Cluster0?retryWrites=true&w=majority"
+}
