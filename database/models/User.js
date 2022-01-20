@@ -32,5 +32,5 @@ const schema = new Schema({
 
 module.exports = {
   schema,
-  model: model("Client", schema),
+  model: model("User", schema),
 };

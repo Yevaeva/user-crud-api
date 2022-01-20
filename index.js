@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 require("./database/index")(configs, mongoose);
 require("./routes/swagger.route")(app);
-require("./routes/client.route")(app, models, configs);
+require("./routes/user.route")(app, models, configs);
 
 server.listen(process.env.PORT || configs.port, () =>
   console.log(`NodeJS server listen on port ${configs.port}`)

@@ -1,11 +1,11 @@
-const Client = require("./models/Client");
+const User = require("./models/User");
 
 const models = {
-  Client: Client.model,
+  User: User.model,
 };
 
 const schemas = {
-  Client: Client.schema,
+  User: User.schema,
 };
 
 module.exports = { models, schemas };
