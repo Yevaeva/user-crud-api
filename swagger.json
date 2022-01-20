@@ -2,54 +2,40 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "title": "Client Management Api",
-    "description": "API doc for Client Management Project"
+    "title": "User CRUD API",
+    "description": "API doc for User Management Project"
   },
-  "host": "localhost:5000",
+  "host": "localhost:3007",
   "basePath": "/api",
   "tags": [
     {
-      "name": "Clients",
-      "description": "Clients API"
-    },
-    {
-      "name": "Providers",
-      "description": "Providers API"
+      "name": "Users",
+      "description": "Users API"
     }
   ],
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
-    "/client": {
+    "/user": {
       "post": {
-        "tags": [
-          "Clients"
-        ],
-        "summary": "Create a client",
+        "tags": ["Users"],
+        "summary": "Create a user",
         "parameters": [
           {
-            "name": "client",
+            "name": "user",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/createClient"
+              "$ref": "#/definitions/createUser"
             }
           }
         ],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/getClient"
+              "$ref": "#/definitions/getUser"
             }
           },
           "409": {
@@ -61,222 +47,67 @@
         }
       }
     },
-    "/clients": {
+    "/users": {
       "get": {
-        "tags": [
-          "Clients"
-        ],
-        "summary": "Get all clients",
-        "description": "Returns a clients list",
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "description": "Returns a users list",
         "responses": {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/getClients"
+              "$ref": "#/definitions/getUsers"
             }
           }
         }
       }
     },
-    "/client/{clientId}": {
-      "description": "Returns a single client",
+    "/user/{userId}": {
       "parameters": [
         {
-          "name": "clientID",
+          "name": "userId",
           "in": "path",
           "required": true,
-          "description": "ID of client to return",
+          "description": "ID of user that we want to find",
           "type": "string"
         }
       ],
-      "get": {
-        "tags": [
-          "Clients"
-        ],
-        "summary": "Find client by ID",
+
+      "delete": {
+        "summary": "Delete user with given ID",
+        "tags": ["User"],
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "User is deleted",
             "schema": {
-              "$ref": "#/definitions/getClient"
-            }
-          },
-          "404": {
-            "description": "Client not found",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                }
+              }
             }
           }
         }
       },
       "put": {
-        "tags": [
-          "Clients"
-        ],
-        "summary": "Find client by ID and update",
-        "description": "Update a client",
+        "summary": "Update user with give ID",
+        "tags": ["User"],
         "parameters": [
           {
-            "name": "client",
+            "name": "user",
             "in": "body",
+            "description": "User with new values of properties",
             "schema": {
-              "$ref": "#/definitions/updateClient"
+              "$ref": "#/definitions/User"
             }
           }
-        ],
-        "produces": [
-          "application/json"
         ],
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "User is updated",
             "schema": {
-              "$ref": "#/definitions/getClient"
-            }
-          },
-          "409": {
-            "description": "Duplication detected",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Find client by ID and delete",
-        "tags": [
-          "Clients"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/deleteResponse"
-            }
-          },
-          "404": {
-            "description": "Client not found",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/providers": {
-      "get": {
-        "tags": [
-          "Providers"
-        ],
-        "summary": "Get all providers",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/getProviders"
-            }
-          }
-        }
-      }
-    },
-    "/provider": {
-      "post": {
-        "tags": [
-          "Providers"
-        ],
-        "summary": "Create a new provider",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/provider"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/getProvider"
-            }
-          },
-          "409": {
-            "description": "Duplication detected",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/provider/{providerId}": {
-      "parameters": [
-        {
-          "name": "providerId",
-          "in": "path",
-          "required": true,
-          "description": "The provider ID",
-          "type": "string"
-        }
-      ],
-      "put": {
-        "tags": [
-          "Providers"
-        ],
-        "summary": "Find provider by ID and update",
-        "parameters": [
-          {
-            "name": "provider",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/provider"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/getProvider"
-            }
-          },
-          "409": {
-            "description": "Duplication detected",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          },
-          "404": {
-            "description": "Provider not found",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Find provider by ID and delete",
-        "tags": [
-          "Providers"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/deleteResponse"
-            }
-          },
-          "404": {
-            "description": "Provider not found",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
+              "$ref": "#/definitions/updateUser"
             }
           }
         }
@@ -284,14 +115,16 @@
     }
   },
   "definitions": {
-    "createClient": {
-      "required": [
-        "name",
-        "email",
-        "phone"
-      ],
+    "createUser": {
+      "required": ["name", "surname", "address", "email", "phone"],
       "properties": {
         "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "address": {
           "type": "string"
         },
         "email": {
@@ -300,18 +133,18 @@
         },
         "phone": {
           "type": "string"
-        },
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         }
       }
     },
-    "updateClient": {
+    "updateUser": {
       "properties": {
         "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "address": {
           "type": "string"
         },
         "email": {
@@ -320,16 +153,10 @@
         },
         "phone": {
           "type": "string"
-        },
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         }
       }
     },
-    "getClient": {
+    "getUser": {
       "properties": {
         "_id": {
           "type": "string"
@@ -337,59 +164,25 @@
         "name": {
           "type": "string"
         },
+        "surname": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
         "email": {
           "type": "string",
           "format": "email"
         },
         "phone": {
           "type": "string"
-        },
-        "providers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              }
-            }
-          }
         }
       }
     },
-    "getClients": {
+    "getUsers": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/getClient"
-      }
-    },
-    "provider": {
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "getProvider": {
-      "properties": {
-        "_id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "getProviders": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/getProvider"
+        "$ref": "#/definitions/getUser"
       }
     },
     "deleteResponse": {
@@ -421,4 +214,3 @@
     }
   }
 }
-
