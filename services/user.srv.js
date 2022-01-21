@@ -73,12 +73,6 @@ class UserSrv {
   }
 
   async updateUser(id, body) {
-    const { email } = body;
-    const emailIsExist = await this.model.findOne({ email });
-    if (emailIsExist) {
-      const err = new Error(errorMessages.emailAlreadyExists);
-      return AsyncFunctionResponse.constructResponseErrModel(err);
-    }
     try {
       const user = await this.model
         .findByIdAndUpdate({ _id: id }, body, { new: true })
@@ -90,6 +84,10 @@ class UserSrv {
 
       return AsyncFunctionResponse.constructResponseModel(user);
     } catch (err) {
+      if (err.codeName === "DuplicateKey") {
+        const err = new Error(errorMessages.emailAlreadyExists);
+        return AsyncFunctionResponse.constructResponseErrModel(err);
+      }
       return AsyncFunctionResponse.constructResponseErrModel(err);
     }
   }
